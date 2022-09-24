@@ -17,7 +17,7 @@ const FooterBanner = ({ footerBanner: { discount, largeText1, desc, largeText2, 
           <p>{smallText}</p>
           <h3>{largeText2}</h3>
           <p>{desc}</p>
-          <Link href={`/product/${product}`}>
+          <Link href={`/blog`}>
             <button style={{ backgroundColor: footerPrimaryColor, color: footerBackgroundColor }} type="text">{buttonText}</button>
           </Link>
         </div>

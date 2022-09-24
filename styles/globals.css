@@ -1,5 +1,5 @@
 :root {
-  --color1: rgb(243, 174, 209);
+  --color1: rgb(29, 29, 28);
   --color2: #555;
   --gray: #222;
   --light-color-1: #ebebeb;
@@ -161,7 +161,7 @@ span.text-red {
   padding: 100px 40px;
   border-radius: 15px;
   position: relative;
-  height: 500px;
+  min-height: 500px;
   line-height: 0.9;
   width: 100%;
 
@@ -169,6 +169,8 @@ span.text-red {
 
 .hero-banner-container .beats-solo {
   font-size: 20px;
+  position: relative;
+  z-index: 15;
 }
 
 .hero-banner-container button {
@@ -180,7 +182,8 @@ span.text-red {
   font-size: 18px;
   font-weight: 500;
   cursor: pointer;
-  z-index: 10000 !important;
+  position: relative;
+  z-index: 15;
 }
 
 .hero-banner-container button:hover {
@@ -191,6 +194,8 @@ span.text-red {
 .hero-banner-container h3 {
   font-size: 4rem;
   margin-top: 4px;
+  position: relative;
+  z-index: 15;
 }
 
 .hero-banner-container h1 {
@@ -198,6 +203,8 @@ span.text-red {
   font-size: 10em;
   margin-left: -10px;
   text-transform: uppercase;
+  position: relative;
+  z-index: 15;
 }
 
 .hero-banner-image {
@@ -207,6 +214,7 @@ span.text-red {
   right: 20%;
   width: 450px;
   height: 450px;
+  z-index: 10;
 }
 
 
@@ -258,7 +266,7 @@ span.text-red {
   background-color: rgb(60, 65, 57);
   border-radius: 15px;
   position: relative;
-  height: 400px;
+  min-height: 400px;
   line-height: 1;
   color: white;
   width: 100%;
@@ -754,6 +762,32 @@ span.text-red {
   margin-top: 10px;
 }
 
+.blog-container {
+  width: 100%;
+  height: 300px;
+  background-color: var(--color2);
+  padding: 70px 40px;
+  border-radius: 15px;
+  position: relative;
+  line-height: 0.9;
+}
+.blog-container h2{
+  color: var(--color1);
+  font-size: 34px;
+  font-weight: bold;
+}
+.blog-container P{
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  bottom: 50px;
+}
+
+
 @media screen and (max-width:800px) {
   .hero-banner-container {
     height: 560px;
@@ -819,7 +853,6 @@ span.text-red {
 
   .hero-banner-container button {
     margin-top: 90px;
-    z-index: 10000;
   }
 
   .desc {
