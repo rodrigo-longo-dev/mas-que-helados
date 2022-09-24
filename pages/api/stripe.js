@@ -7,7 +7,7 @@ const STRIPE_SHIPPING_OPTIONS = [
   { shipping_rate: 'shr_1Ll7jFGYxWDRvVe6JgBW0zgJ' },
   { shipping_rate: 'shr_1Ll7BmGYxWDRvVe6CslDVULt' },
 ]
-const STRIPE_CONFIG_CURRENCY = 'usd'
+const STRIPE_CONFIG_CURRENCY = 'eur'
 
 
 
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         mode: 'payment',
         payment_method_types: ['card'],
         billing_address_collection: 'auto',
-        shipping_options: STRIPE_SHIPPING_OPTIONS,
+        // shipping_options: STRIPE_SHIPPING_OPTIONS,
         line_items: req.body.map((item) => {
           const img = item.image[0].asset._ref;
           const newImage = img
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
                 name: item.name,
                 images: [newImage],
               },
-              unit_amount: item.price * 100,
+              unit_amount: parseFloat((item.price * 100).toFixed(2)),
             },
             adjustable_quantity: {
               enabled:true,
@@ -48,7 +48,6 @@ export default async function handler(req, res) {
         success_url: `${req.headers.origin}/success`,
         cancel_url: `${req.headers.origin}/canceled`,
       }
-
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create(params);
 

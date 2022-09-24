@@ -425,10 +425,11 @@ span.text-red {
 }
 
 .product .cart-product-image {
-  width: 180px;
+  width: 150px;
   height: 150px;
   border-radius: 15px;
   background-color: var(--light-color-1);
+  object-fit: cover;
 }
 
 .item-desc .flex {
@@ -882,8 +883,8 @@ span.text-red {
   }
 
   .product .cart-product-image {
-    width: 25%;
-    height: 25%;
+    width: 100px;
+    height: 100px;
   }
 
   .buttons .add-to-cart {
