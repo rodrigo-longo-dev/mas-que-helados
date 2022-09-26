@@ -44,7 +44,10 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const bannerData = await client.fetch(bannerQuery)
 
 
-  return { props: { category, products, slug, bannerData } }
+  return { 
+    props: { category, products, slug, bannerData },
+    revalidate: 10,
+  }
 }
  
 export default Home

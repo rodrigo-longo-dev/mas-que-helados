@@ -109,7 +109,10 @@ export const getStaticProps = async ({ params: { product } }) => {
   const currentProduct = await client.fetch(query)
   const products = await client.fetch(productsQuery)
 
-  return { props: { currentProduct, products } }
+  return { 
+    props: { currentProduct, products },
+    revalidate: 10,
+  }
 }
 
 export default ProductDetails
