@@ -4,8 +4,7 @@ const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 
 const SANITY_ID = 'sriu7xjj'
 const STRIPE_SHIPPING_OPTIONS = [
-  { shipping_rate: 'shr_1Ll7jFGYxWDRvVe6JgBW0zgJ' },
-  { shipping_rate: 'shr_1Ll7BmGYxWDRvVe6CslDVULt' },
+  { shipping_rate: 'shr_1LmCpsGYxWDRvVe6f4KLV98m' },
 ]
 const STRIPE_CONFIG_CURRENCY = 'eur'
 
@@ -19,7 +18,7 @@ export default async function handler(req, res) {
         mode: 'payment',
         payment_method_types: ['card'],
         billing_address_collection: 'auto',
-        // shipping_options: STRIPE_SHIPPING_OPTIONS,
+        shipping_options: STRIPE_SHIPPING_OPTIONS,
         line_items: req.body.map((item) => {
           const img = item.image[0].asset._ref;
           const newImage = img

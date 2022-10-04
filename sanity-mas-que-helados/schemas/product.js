@@ -39,6 +39,38 @@ export default {
             type: 'number'
         },
         {
+            title: 'Ficha Técnica',
+            name: 'fichaTecnica',
+            type: 'file',
+            fields: [
+                {
+                    name: 'description',
+                    type: 'string',
+                    title: 'Description'
+                }
+            ]
+        },
+        // {
+        //     name: 'priceAndUnits',
+        //     title: 'Precio y unidades',
+        //     type: 'array',
+        //     of: [{
+        //         type: 'object',
+        //         fields: [
+        //             {
+        //                 name: 'price',
+        //                 title: 'Precio',
+        //                 type: 'number'
+        //             },
+        //             {
+        //                 name: 'units',
+        //                 title: 'Unidades',
+        //                 type: 'number'
+        //             },
+        //         ]
+        //     }]
+        // },
+        {
             name: 'details',
             title: 'Details',
             type: 'string'
