@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
-import { client, urlFor, fileUrl } from '../../../lib/client'
-import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-icons/ai'
-import { Product } from '../../../components'
-import { useStateContext } from '../../../context/StateContext'
+import { client, urlFor, fileUrl } from '../../../../lib/client'
+import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar, AiOutlineClose } from 'react-icons/ai'
+import { Product } from '../../../../components'
+import { useStateContext } from '../../../../context/StateContext'
 
 const ProductDetails = ({ currentProduct, products }) => {
   const { image, name, details, price, units, fichaTecnica } = currentProduct
   const [index, setIndex] = useState(0);
+  const [bigImage, setBigImage] = useState(false);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext()
   const handleBuyNow = () => {
     onAdd(currentProduct, qty, onAdd)
@@ -21,11 +22,18 @@ const ProductDetails = ({ currentProduct, products }) => {
         <meta name="description" content="Todos los productos para el helado, están en más que helados!" />
         <meta property="og:title" content="Mas que helados" />
       </Head>
+      {bigImage && <div className="big-image-onscreen">
+        <AiOutlineClose onClick={() => setBigImage(false)} />
+        <img
+          src={urlFor(image[index])}
+          className=""
+        />
+      </div>}
       <div>
         <div className="product-detail-container">
-          <div>
+          {image[0].asset && <div>
             <div className="image-container">
-              <img src={urlFor(image && image[index])} className="product-detail-image" />
+              <img onClick={() => setBigImage(true)} src={urlFor(image && image[index])} className="product-detail-image" />
             </div>
             <div className="small-images-container">
               {image?.map((item, i) => (
@@ -37,12 +45,12 @@ const ProductDetails = ({ currentProduct, products }) => {
                 />
               ))}
             </div>
-          </div>
+          </div>}
 
           <div className="product-detail-desc">
             <h1>{name}</h1>
             {fichaTecnica && <a target="_blank" rel="noreferrer" href={fileUrl(fichaTecnica.asset)}>Ficha téctnica</a>}
-            <div className="reviews">
+            {/* <div className="reviews">
               <div>
                 <AiFillStar />
                 <AiFillStar />
@@ -53,8 +61,8 @@ const ProductDetails = ({ currentProduct, products }) => {
               <p>
                 (20)
               </p>
-            </div>
-            <h4>Details: </h4>
+            </div> */}
+            <h4>Detalles: </h4>
             <p>{details}</p>
             <p className="price">{price}€ <span> / {units} uds.</span></p>
 
@@ -78,7 +86,7 @@ const ProductDetails = ({ currentProduct, products }) => {
           <div className="marquee">
             <div className="maylike-products-container track">
               {products.map((item) => (
-                <Product key={item._id} product={item} />
+                <Product marquee={true} key={item._id} product={item} />
               ))}
             </div>
           </div>
@@ -103,10 +111,19 @@ export const getStaticPaths = async () => {
 }`
   const category = await client.fetch(query2)
 
+  const query3 = `*[_type == "subcategory"]{
+    slug {
+        current
+    }
+}`
+  const subcategory = await client.fetch(query3)
+
   const paths = []
   category.forEach(cat => {
-    products.forEach(prod => {
-      paths.push({ params: { slug: cat.slug.current, product: prod.slug?.current || '' } })
+    subcategory.forEach(subcat => {
+      products.forEach(prod => {
+        paths.push({ params: { slug: cat.slug.current, productos: subcat.slug.current, product: prod.slug?.current || '' } })
+      })
     })
   })
 
@@ -121,7 +138,7 @@ export const getStaticProps = async ({ params: { product } }) => {
   const products = await client.fetch(productsQuery)
 
   return {
-    props: { currentProduct, products },
+    props: { currentProduct, products},
     revalidate: 10,
   }
 }

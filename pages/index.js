@@ -5,7 +5,7 @@ import {Category, HeroBanner, FooterBanner } from '../components'
 const Home = ({ categories, bannerData }) => {
   return (
     <>
-        <HeroBanner heroBanner={bannerData && bannerData[0]} />
+        {bannerData && <HeroBanner heroBanner={bannerData[0]} />}
         <div className="products-heading">
           <h2>Los mejores productos para helado</h2>
           <p>El mejor helado</p>
@@ -13,7 +13,7 @@ const Home = ({ categories, bannerData }) => {
         <div className="products-container">
           {categories?.map(category => <Category key={category.id} category={category} />)}
         </div>
-        <FooterBanner footerBanner={bannerData && bannerData[0]} />
+        {bannerData && <FooterBanner footerBanner={bannerData[0]} />}
     </>
   )
 }

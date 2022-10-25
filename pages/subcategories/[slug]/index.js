@@ -11,15 +11,15 @@ const Home = ({ category, products, slug, bannerData }) => {
         <meta name="description" content="Todos los productos para el helado, están en más que helados!" />
         <meta property="og:title" content="Mas que helados" />
       </Head>
-      <HeroBanner heroBanner={bannerData && bannerData[0]} />
+      {bannerData && <HeroBanner heroBanner={bannerData[0]} />}
       <div className="products-heading">
         <h2>{category?.name}</h2>
-        <p>El mejor helado</p>
+        <p>{category?.name}</p>
       </div>
       <div className="products-container">
         {products?.map(product => <Product urlCategory={slug} key={product.id} product={product} />)}
       </div>
-      <FooterBanner footerBanner={bannerData && bannerData[0]} />
+      {bannerData && <FooterBanner footerBanner={bannerData[0]} />}
     </>
   )
 }
@@ -43,7 +43,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const query = `*[_type == "category" && slug.current == '${slug}'][0]`
   const category = await client.fetch(query)
 
-  const productsQuery = `*[_type == "product" && category._ref == '${category._id}']`
+  const productsQuery = `*[_type == "subcategory" && category._ref == '${category._id}']`
   const products = await client.fetch(productsQuery)
 
   const bannerQuery = '*[_type == "banner"]'

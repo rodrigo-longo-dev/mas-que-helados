@@ -1,29 +1,6 @@
-:root {
-  --color1: rgb(29, 29, 28);
-  --color2: #555;
-  --gray: #222;
-  --light-color-1: #ebebeb;
-}
-
-html,
-body,
-* {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  box-sizing: border-box;
-
-}
-
-::-webkit-scrollbar {
-  width: 0px;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
+@import "./_reset.scss";
+@import "./register.scss";
+@import "./input.scss";
 
 .main-container {
   max-width: 1400px;
@@ -89,7 +66,12 @@ span.text-red {
   font-size: 18px;
 
 }
-
+.navbar-icons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
 .cart-icon {
   font-size: 25px;
   color: var(--gray);
@@ -144,7 +126,7 @@ span.text-red {
   background-color: var(--light-color-1);
   transform: scale(1, 1);
   transition: transform 0.5s ease;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .product-name {
@@ -287,6 +269,7 @@ span.text-red {
   font-weight: 500;
   cursor: pointer;
 }
+
 .banner-desc button:hover {
   scale: 1.1;
   transition: all 0.5s ease-out;
@@ -562,6 +545,7 @@ span.text-red {
 
 .product-detail-desc p {
   margin-top: 10px;
+  max-width: 400px;
 }
 
 .reviews p {
@@ -772,22 +756,51 @@ span.text-red {
   position: relative;
   line-height: 0.9;
 }
-.blog-container h2{
+
+.blog-container h2 {
   color: var(--color1);
   font-size: 34px;
   font-weight: bold;
 }
-.blog-container P{
+
+.blog-container P {
   color: white;
   font-size: 24px;
   font-weight: bold;
   letter-spacing: 4px;
   position: absolute;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   bottom: 50px;
 }
 
+.big-image-onscreen {
+  position: fixed;
+  inset: 0;
+  background-color: rgb(255, 255, 255, .5);
+  backdrop-filter: blur(6px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  margin: 0;
+  height: 100%;
+  z-index: 99999;
+}
+
+.big-image-onscreen svg {
+  position: absolute;
+  font-size: 30px;
+  right: 50px;
+  top: 50px;
+  cursor: pointer;
+}
+.big-image-onscreen img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: cover;
+
+border-radius: 6px;}
 
 @media screen and (max-width:800px) {
   .hero-banner-container {

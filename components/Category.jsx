@@ -6,7 +6,7 @@ import { urlFor } from '../lib/client'
 const Category = ({ category: { image, name, slug } }) => {
   return (
     <div key={slug}>
-      <Link href={`/catalogo/${slug.current}`}>
+      <Link href={`/subcategories/${slug.current}`}>
         <div className="product-card">
           <img src={urlFor(image)} width={250} height={250} className="product-image" />
           <p className="product-name">{name}</p>

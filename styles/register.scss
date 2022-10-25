@@ -1,0 +1,22 @@
+.register {
+    &__container {
+        width: 100%;
+        height: calc(100vh - 200px);
+        display: flex;
+        align-items: center;
+        justify-content:center;
+    }
+    &__box {
+        width: 400px;
+        background-color: rgba(206, 206, 206, 0.315);
+        backdrop-filter: blur(6px);
+        border-radius: 15px;
+        padding: 30px;
+        p {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+    }
+}

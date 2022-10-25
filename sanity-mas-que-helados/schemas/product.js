@@ -50,37 +50,17 @@ export default {
                 }
             ]
         },
-        // {
-        //     name: 'priceAndUnits',
-        //     title: 'Precio y unidades',
-        //     type: 'array',
-        //     of: [{
-        //         type: 'object',
-        //         fields: [
-        //             {
-        //                 name: 'price',
-        //                 title: 'Precio',
-        //                 type: 'number'
-        //             },
-        //             {
-        //                 name: 'units',
-        //                 title: 'Unidades',
-        //                 type: 'number'
-        //             },
-        //         ]
-        //     }]
-        // },
         {
             name: 'details',
             title: 'Details',
             type: 'string'
         },
         {
-            name: 'category',
-            title: 'Category',
+            name: 'subcategory',
+            title: 'Subategory',
             type: 'reference',
-            description: 'A que categoría pertenece este producto',
-            to: [{ type: 'category' }],
+            description: 'A que subcategoría pertenece este producto',
+            to: [{ type: 'subcategory' }],
             validation: Rules => Rules.required()
         }
     ]

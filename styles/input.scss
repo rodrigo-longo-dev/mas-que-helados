@@ -1,0 +1,37 @@
+.input {
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    background-color: white;
+    border-radius: 6px;
+    outline: none;
+    text-align: center;
+
+    &::placeholder {
+        font-size: 14px;
+        color: rgb(148, 148, 148);
+        text-align: center;
+    }
+}
+
+.button {
+    width: 100%;
+    padding: 10px 14px;
+    border: none;
+    background-color: rgb(199, 199, 199);
+    border-radius: 6px;
+    outline: none;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.35s ease;
+    &:hover {
+        background-color: rgb(238, 209, 209);
+    }
+    &--disabled {
+        cursor: not-allowed;
+        background-color: rgb(153, 143, 143);
+        &:hover {
+            background-color: rgb(153, 143, 143);
+        }
+    }
+}
