@@ -40,7 +40,7 @@ export const getStaticPaths = async () => {
 
   const paths = category.map(cat => ({ params: { slug: cat.slug.current } }))
 
-  return { paths, fallback: 'blocking' }
+  return { paths, fallback: false }
 }
 
 
