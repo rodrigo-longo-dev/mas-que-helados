@@ -49,8 +49,11 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const query = `*[_type == "category" && slug.current == '${slug}'][0]`
   const category = await client.fetch(query)
 
-  const productsQuery = `*[_type == "subcategory" && category._ref == '${category._id}']`
-  const products = await client.fetch(productsQuery)
+  const products = [{}]
+  if (category) {
+    const productsQuery = `*[_type == "subcategory" && category._ref == '${category._id}']`
+    products = await client.fetch(productsQuery)
+  }
 
   const bannerQuery = '*[_type == "banner"]'
   const bannerData = await client.fetch(bannerQuery)
