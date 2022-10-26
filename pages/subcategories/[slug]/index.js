@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 
 const Home = ({ category, products, slug, bannerData }) => {
   const router = useRouter()
-  if (!router.isFallback && !post?.slug) {
+  if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
   }
   return (

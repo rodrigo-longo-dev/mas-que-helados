@@ -7,7 +7,7 @@ import { Product } from '../../../../components'
 import { useStateContext } from '../../../../context/StateContext'
 import { useRouter } from 'next/router'
 
-const ProductDetails = ({ currentProduct, products }) => {
+const ProductDetails = ({ currentProduct, products, product }) => {
   const { image, name, details, price, units, fichaTecnica } = currentProduct
   const [index, setIndex] = useState(0);
   const [bigImage, setBigImage] = useState(false);
@@ -17,7 +17,7 @@ const ProductDetails = ({ currentProduct, products }) => {
     setShowCart(true)
   }
   const router = useRouter()
-  if (!router.isFallback && !post?.slug) {
+  if (!router.isFallback && !product) {
     return <ErrorPage statusCode={404} />
   }
   return (
@@ -143,7 +143,7 @@ export const getStaticProps = async ({ params: { product } }) => {
   const products = await client.fetch(productsQuery)
 
   return {
-    props: { currentProduct, products },
+    props: { currentProduct, products, product },
     revalidate: 10,
   }
 }
