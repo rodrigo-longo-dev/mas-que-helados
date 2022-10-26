@@ -49,7 +49,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
   const query = `*[_type == "category" && slug.current == '${slug}'][0]`
   const category = await client.fetch(query)
 
-  const products = [{}]
+  let products = [{}]
   if (category) {
     const productsQuery = `*[_type == "subcategory" && category._ref == '${category._id}']`
     products = await client.fetch(productsQuery)
