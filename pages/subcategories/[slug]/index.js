@@ -1,9 +1,15 @@
 import React from 'react'
 import Head from 'next/head'
+import ErrorPage from 'next/error'
 import { client } from '../../../lib/client'
 import { Product, HeroBanner, FooterBanner } from '../../../components'
+import { useRouter } from 'next/router'
 
 const Home = ({ category, products, slug, bannerData }) => {
+  const router = useRouter()
+  if (!router.isFallback && !post?.slug) {
+    return <ErrorPage statusCode={404} />
+  }
   return (
     <>
       <Head>

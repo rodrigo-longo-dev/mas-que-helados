@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
+import ErrorPage from 'next/error'
 import { client, urlFor, fileUrl } from '../../../../lib/client'
-import { AiOutlineMinus, AiOutlinePlus, AiFillStar, AiOutlineStar, AiOutlineClose } from 'react-icons/ai'
+import { AiOutlineMinus, AiOutlinePlus, AiOutlineClose } from 'react-icons/ai'
 import { Product } from '../../../../components'
 import { useStateContext } from '../../../../context/StateContext'
+import { useRouter } from 'next/router'
 
 const ProductDetails = ({ currentProduct, products }) => {
   const { image, name, details, price, units, fichaTecnica } = currentProduct
@@ -14,7 +16,10 @@ const ProductDetails = ({ currentProduct, products }) => {
     onAdd(currentProduct, qty, onAdd)
     setShowCart(true)
   }
-
+  const router = useRouter()
+  if (!router.isFallback && !post?.slug) {
+    return <ErrorPage statusCode={404} />
+  }
   return (
     <>
       <Head>
@@ -138,7 +143,7 @@ export const getStaticProps = async ({ params: { product } }) => {
   const products = await client.fetch(productsQuery)
 
   return {
-    props: { currentProduct, products},
+    props: { currentProduct, products },
     revalidate: 10,
   }
 }
