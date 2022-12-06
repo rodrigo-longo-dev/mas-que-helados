@@ -1,10 +1,11 @@
 import React from 'react'
 import Link from 'next/link'
-import { AiOutlineShopping } from 'react-icons/ai'
+import { AiOutlineShopping, AiFillPhone } from 'react-icons/ai'
 import { FaUserCircle } from 'react-icons/fa'
-
+import logoMQH from '../assets/logoMQH.png'
 import { Cart } from './'
 import { useStateContext } from '../context/StateContext'
+import Image from 'next/image'
 
 const Navbar = () => {
   const { showCart, setShowCart, totalQuantities } = useStateContext()
@@ -13,14 +14,19 @@ const Navbar = () => {
   return (
     <div className="navbar-container">
       <p className="logo">
-        <Link href="/">Mas Que Helados</Link>
+        <Link href="/"><Image width="80" height="67" src={logoMQH} /></Link>
       </p>
       <div className="navbar-icons">
-        {/* <Link href="/register">
+        <Link href="/contacto">
+          <div className="cart-icon">
+            <AiFillPhone />
+          </div>
+        </Link>
+        <Link href="/register">
           <div className="cart-icon">
             <FaUserCircle />
           </div>
-        </Link> */}
+        </Link>
         <button onClick={() => setShowCart(true)} type="button" className="cart-icon">
           <AiOutlineShopping />
           <span className="cart-item-qty">{totalQuantities}</span>

@@ -5,7 +5,7 @@ import { client } from '../../../../lib/client'
 import { Product, HeroBanner, FooterBanner } from '../../../../components'
 import { useRouter } from 'next/router'
 
-const Home = ({ category, products, productos, slug, bannerData }) => {
+const Index = ({ category, products, productos, slug, bannerData }) => {
   const router = useRouter()
   if (!router.isFallback && !productos) {
     return <ErrorPage statusCode={404} />
@@ -32,12 +32,12 @@ const Home = ({ category, products, productos, slug, bannerData }) => {
 }
 
 export const getStaticPaths = async () => {
-  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-    return {
-      paths: [],
-      fallback: 'blocking',
-    }
-  }
+  // if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+  //   return {
+  //     paths: [],
+  //     fallback: 'blocking',
+  //   }
+  // }
   const query = `*[_type == "product"]{
     slug {
       current
@@ -59,7 +59,7 @@ export const getStaticPaths = async () => {
     })
   })
 
-  return { paths, fallback: false }
+  return { paths, fallback: 'blocking' }
 }
 
 
@@ -84,4 +84,4 @@ export const getStaticProps = async ({ params: { productos, slug } }) => {
   }
 }
 
-export default Home
+export default Index

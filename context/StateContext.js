@@ -16,7 +16,8 @@ export const StateContext = ({ children }) => {
     const onAdd = (product, quantity) => {
         const checkProducInCart = cartItems.find(item => item._id === product._id);
 
-        setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
+        setTotalPrice((prevTotalPrice) => prevTotalPrice + (product.precio.unidadesCaja / product.precio.unidadesPrecio) * product.precio.precio * quantity);
+        //! setTotalPrice((prevTotalPrice) => prevTotalPrice + product.price * quantity);
         setTotalQuantities((prevTotalQuantities) => prevTotalQuantities + quantity);
 
         if (checkProducInCart) {
@@ -52,23 +53,27 @@ export const StateContext = ({ children }) => {
 
         if (value === 'inc') {
             setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 }]);
-            setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price)
+            //! setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price)
+            setTotalPrice((prevTotalPrice) => prevTotalPrice + (foundProduct.precio.unidadesCaja / foundProduct.precio.unidadesPrecio) * foundProduct.precio.precio)
             setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1)
         } else if (value === 'dec') {
             if (foundProduct.quantity > 1) {
                 setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity - 1 }]);
-                setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price)
+                setTotalPrice((prevTotalPrice) => prevTotalPrice - (foundProduct.precio.unidadesCaja / foundProduct.precio.unidadesPrecio) * foundProduct.precio.precio)
                 setTotalQuantities(prevTotalQuantities => prevTotalQuantities - 1)
             }
         }
     }
 
-    const incQty = () => {
+    const incQty = (qty) => {
+        if (qty > 0) {
+            return setQty(qty)
+        }
         return setQty((prevQty) => prevQty + 1)
     }
-    const decQty = () => {
+    const decQty = (qty = 1) => {
         setQty((prevQty) => {
-            if (prevQty - 1 < 1) return 1
+            if (prevQty - 1 < qty) return qty
             return prevQty - 1
         })
     }

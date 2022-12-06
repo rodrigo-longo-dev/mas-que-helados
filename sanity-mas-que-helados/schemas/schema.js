@@ -5,8 +5,9 @@ import product from './product'
 import banner from './banner'
 import category from './category'
 import subcategory from './subcategory'
+import users from './users'
 
 export default createSchema({
   name: 'default',
-  types: schemaTypes.concat([product, banner, category, subcategory]),
+  types: schemaTypes.concat([product, banner, category, subcategory, users]),
 })

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
 import { client, urlFor, fileUrl } from '../../../../lib/client'
@@ -8,7 +8,7 @@ import { useStateContext } from '../../../../context/StateContext'
 import { useRouter } from 'next/router'
 
 const ProductDetails = ({ currentProduct, products, product }) => {
-  const { image, name, details, price, units, fichaTecnica } = currentProduct
+  const { image, name, details, price, units, fichaTecnica, precio } = currentProduct
   const [index, setIndex] = useState(0);
   const [bigImage, setBigImage] = useState(false);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext()
@@ -20,6 +20,12 @@ const ProductDetails = ({ currentProduct, products, product }) => {
   if (!router.isFallback && !product) {
     return <ErrorPage statusCode={404} />
   }
+  useEffect(() => {
+    if (precio.minimoCajas) {
+        incQty(precio.minimoCajas)
+    }
+  }, [])
+  console.log(precio);
   return (
     <>
       <Head>
@@ -55,34 +61,40 @@ const ProductDetails = ({ currentProduct, products, product }) => {
           <div className="product-detail-desc">
             <h1>{name}</h1>
             {fichaTecnica && <a target="_blank" rel="noreferrer" href={fileUrl(fichaTecnica.asset)}>Ficha téctnica</a>}
-            {/* <div className="reviews">
-              <div>
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiFillStar />
-                <AiOutlineStar />
-              </div>
-              <p>
-                (20)
-              </p>
-            </div> */}
             <h4>Detalles: </h4>
             <p>{details}</p>
-            <p className="price">{price}€ <span> / {units} uds.</span></p>
-
-            <div className="quantity">
-              <h3>Quantity:</h3>
-              <p className="quantity-desc">
-                <span className="minus" onClick={decQty}><AiOutlineMinus /></span>
-                <span className="num">{qty}</span>
-                <span className="plus" onClick={incQty}><AiOutlinePlus /></span>
-              </p>
-            </div>
-            <div className="buttons">
-              <button type="button" className="add-to-cart" onClick={() => onAdd(currentProduct, qty)}>Add to Cart</button>
-              <button type="button" className="buy-now" onClick={handleBuyNow}>Buy Now</button>
-            </div>
+            {/* <>
+              <p className="price">{price}€ <span> / {units} uds.</span></p>
+              <div className="quantity">
+                <h3>Quantity:</h3>
+                <p className="quantity-desc">
+                  <span className="minus" onClick={decQty}><AiOutlineMinus /></span>
+                  <span className="num">{qty}</span>
+                  <span className="plus" onClick={incQty}><AiOutlinePlus /></span>
+                </p>
+              </div>
+              <div className="buttons">
+                <button type="button" className="add-to-cart" onClick={() => onAdd(currentProduct, qty)}>Add to Cart</button>
+                <button type="button" className="buy-now" onClick={handleBuyNow}>Buy Now</button>
+              </div>
+            </> */}
+            <>
+              <p className="price">{(precio.unidadesCaja / precio.unidadesPrecio) * precio.precio * qty}€</p>
+              <p className="price">{precio.precio}€ <span> / {precio.unidadesPrecio} uds.</span></p>
+              <p className="price"><span>{precio.unidadesCaja} uds.  / Caja - Pedido mínimo: {precio.minimoCajas} cajas</span></p>
+              <div className="quantity">
+                <h3>Quantity:</h3>
+                <p className="quantity-desc">
+                  <span className="minus" onClick={() => decQty(precio.minimoCajas)}><AiOutlineMinus /></span>
+                  <span className="num">{qty}</span>
+                  <span className="plus" onClick={incQty}><AiOutlinePlus /></span>
+                </p>
+              </div>
+              <div className="buttons">
+                <button type="button" className="add-to-cart" onClick={() => onAdd(currentProduct, qty)}>Add to Cart</button>
+                {/* <button type="button" className="buy-now" onClick={handleBuyNow}>Buy Now</button> */}
+              </div>
+            </>
           </div>
         </div>
 
@@ -102,12 +114,12 @@ const ProductDetails = ({ currentProduct, products, product }) => {
 }
 
 export const getStaticPaths = async () => {
-  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-    return {
-      paths: [],
-      fallback: 'blocking',
-    }
-  }
+  // if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+  //   return {
+  //     paths: [],
+  //     fallback: 'blocking',
+  //   }
+  // }
   const query = `*[_type == "product"]{
     slug {
       current

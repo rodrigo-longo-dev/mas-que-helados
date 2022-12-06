@@ -62,16 +62,16 @@ span.text-red {
 }
 
 .logo {
-  color: var(--gray);
-  font-size: 18px;
 
 }
+
 .navbar-icons {
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
 }
+
 .cart-icon {
   font-size: 25px;
   color: var(--gray);
@@ -123,10 +123,13 @@ span.text-red {
 
 .product-image {
   border-radius: 15px;
-  background-color: var(--light-color-1);
+  background-color: transparent;
   transform: scale(1, 1);
   transition: transform 0.5s ease;
   object-fit: contain;
+  -webkit-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
 }
 
 .product-name {
@@ -499,12 +502,15 @@ span.text-red {
 
 .product-detail-image {
   border-radius: 15px;
-  background-color: var(--light-color-1);
+  background-color: transparent;
   width: 400px;
   height: 400px;
   cursor: pointer;
   transition: .3s ease-in-out;
   object-fit: cover;
+  -webkit-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
 }
 
 .product-detail-image:hover {
@@ -520,7 +526,6 @@ span.text-red {
 
 .small-image {
   border-radius: 8px;
-  background-color: var(--light-color-1);
   width: 70px;
   height: 70px;
   cursor: pointer;
@@ -528,7 +533,9 @@ span.text-red {
 }
 
 .selected-image {
-  background-color: var(--color1);
+  -webkit-box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, .2);
+  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, .2);
 }
 
 .reviews {
@@ -795,12 +802,14 @@ span.text-red {
   top: 50px;
   cursor: pointer;
 }
+
 .big-image-onscreen img {
   max-width: 80%;
   max-height: 80%;
   object-fit: cover;
 
-border-radius: 6px;}
+  border-radius: 6px;
+}
 
 @media screen and (max-width:800px) {
   .hero-banner-container {

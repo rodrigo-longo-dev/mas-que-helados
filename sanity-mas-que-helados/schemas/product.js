@@ -29,9 +29,21 @@ export default {
             validation: Rules => Rules.required()
         },
         {
-            name: 'price',
-            title: 'Price',
-            type: 'number'
+            title: 'Precio',
+            name: 'precio',
+            type: 'object',
+            fields: [
+                { name: 'precio', type: 'number', title: 'Precio', description: 'Precio por cada x unidades'},
+                { name: 'unidadesPrecio', type: 'number', title: 'Unidades', description: 'unidades por ese precio' },
+                { name: 'minimoCajas', type: 'number', title: 'Cajas', description: 'Cajas mínimas' },
+                { name: 'unidadesCaja', type: 'number', title: 'Uds Caja', description: 'Unidades dentro de cada caja' },
+            ]
+        },
+        {
+            name: 'stock',
+            title: 'Stock',
+            type: 'number',
+            description: 'Cajas disponibles en el almacen'
         },
         {
             name: 'units',
@@ -41,6 +53,18 @@ export default {
         {
             title: 'Ficha Técnica',
             name: 'fichaTecnica',
+            type: 'file',
+            fields: [
+                {
+                    name: 'description',
+                    type: 'string',
+                    title: 'Description'
+                }
+            ]
+        },
+        {
+            title: 'Vídeo',
+            name: 'video',
             type: 'file',
             fields: [
                 {

@@ -22,24 +22,24 @@ export default async function handler(req, res) {
         line_items: req.body.map((item) => {
           const img = item.image[0].asset._ref;
           const newImage = img
-          .replace('image-', `https://cdn.sanity.io/images/${SANITY_ID}/production/`)
-          .replace('-webp', '.webp')
-          .replace('-jpeg', '.jpeg')
-          .replace('-jpg', '.jpg')
-          .replace('-png', '.png');
+            .replace('image-', `https://cdn.sanity.io/images/${SANITY_ID}/production/`)
+            .replace('-webp', '.webp')
+            .replace('-jpeg', '.jpeg')
+            .replace('-jpg', '.jpg')
+            .replace('-png', '.png');
 
           return {
-            price_data: { 
+            price_data: {
               currency: STRIPE_CONFIG_CURRENCY,
-              product_data: { 
+              product_data: {
                 name: item.name,
                 images: [newImage],
               },
-              unit_amount: parseFloat((item.price * 100).toFixed(2)),
+              unit_amount: parseFloat(((item.precio.unidadesCaja / item.precio.unidadesPrecio) * item.precio.precio * 100).toFixed(2)),
+              //! unit_amount: parseFloat((item.price * 100).toFixed(2)),
             },
             adjustable_quantity: {
-              enabled:true,
-              minimum: 1,
+              enabled: false,
             },
             quantity: item.quantity
           }
