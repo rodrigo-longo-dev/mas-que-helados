@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
-import { client, urlFor, fileUrl } from '../../../../lib/client'
+import { client, urlFor, fileUrl, videoUrl } from '../../../../lib/client'
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineClose } from 'react-icons/ai'
 import { Product } from '../../../../components'
 import { useStateContext } from '../../../../context/StateContext'
 import { useRouter } from 'next/router'
 
 const ProductDetails = ({ currentProduct, products, product }) => {
-  const { image, name, details, price, units, fichaTecnica, precio } = currentProduct
+  const { image, name, details, video, units, fichaTecnica, precio } = currentProduct
   const [index, setIndex] = useState(0);
   const [bigImage, setBigImage] = useState(false);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext()
@@ -22,10 +22,10 @@ const ProductDetails = ({ currentProduct, products, product }) => {
   }
   useEffect(() => {
     if (precio.minimoCajas) {
-        incQty(precio.minimoCajas)
+      incQty(precio.minimoCajas)
     }
   }, [])
-  console.log(precio);
+  console.log(video);
   return (
     <>
       <Head>
@@ -44,7 +44,16 @@ const ProductDetails = ({ currentProduct, products, product }) => {
         <div className="product-detail-container">
           {image[0].asset && <div>
             <div className="image-container">
-              <img onClick={() => setBigImage(true)} src={urlFor(image && image[index])} className="product-detail-image" />
+              {index !== "video" &&<img onClick={() => setBigImage(true)} src={urlFor(image && image[index])} className="product-detail-image" />}
+              {video && index === "video" && <video
+                className="product-detail-image"
+                muted
+                autoPlay
+                controls
+                loop
+              >
+                <source src={videoUrl(video.asset)} type='video/mp4' />
+              </video>}
             </div>
             <div className="small-images-container">
               {image?.map((item, i) => (
@@ -55,30 +64,23 @@ const ProductDetails = ({ currentProduct, products, product }) => {
                   onMouseEnter={() => setIndex(i)}
                 />
               ))}
+              {video && <video
+                className="small-image"
+                muted
+                loop
+                onMouseEnter={() => setIndex('video')}
+              >
+                <source src={videoUrl(video.asset)} type='video/mp4' />
+              </video>}
             </div>
           </div>}
 
           <div className="product-detail-desc">
             <h1>{name}</h1>
-            {fichaTecnica && <a target="_blank" rel="noreferrer" href={fileUrl(fichaTecnica.asset)}>Ficha téctnica</a>}
+            {fichaTecnica && <a target="_blank" rel="noreferrer" href={fileUrl(fichaTecnica.asset)}>Ficha técnica</a>}
             <h4>Detalles: </h4>
             <p>{details}</p>
-            {/* <>
-              <p className="price">{price}€ <span> / {units} uds.</span></p>
-              <div className="quantity">
-                <h3>Quantity:</h3>
-                <p className="quantity-desc">
-                  <span className="minus" onClick={decQty}><AiOutlineMinus /></span>
-                  <span className="num">{qty}</span>
-                  <span className="plus" onClick={incQty}><AiOutlinePlus /></span>
-                </p>
-              </div>
-              <div className="buttons">
-                <button type="button" className="add-to-cart" onClick={() => onAdd(currentProduct, qty)}>Add to Cart</button>
-                <button type="button" className="buy-now" onClick={handleBuyNow}>Buy Now</button>
-              </div>
-            </> */}
-            <>
+            {precio && <>
               <p className="price">{(precio.unidadesCaja / precio.unidadesPrecio) * precio.precio * qty}€</p>
               <p className="price">{precio.precio}€ <span> / {precio.unidadesPrecio} uds.</span></p>
               <p className="price"><span>{precio.unidadesCaja} uds.  / Caja - Pedido mínimo: {precio.minimoCajas} cajas</span></p>
@@ -94,7 +96,7 @@ const ProductDetails = ({ currentProduct, products, product }) => {
                 <button type="button" className="add-to-cart" onClick={() => onAdd(currentProduct, qty)}>Add to Cart</button>
                 {/* <button type="button" className="buy-now" onClick={handleBuyNow}>Buy Now</button> */}
               </div>
-            </>
+            </>}
           </div>
         </div>
 
@@ -114,12 +116,12 @@ const ProductDetails = ({ currentProduct, products, product }) => {
 }
 
 export const getStaticPaths = async () => {
-  // if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-  //   return {
-  //     paths: [],
-  //     fallback: 'blocking',
-  //   }
-  // }
+  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+    return {
+      paths: [],
+      fallback: 'blocking',
+    }
+  }
   const query = `*[_type == "product"]{
     slug {
       current

@@ -61,10 +61,6 @@ span.text-red {
   margin-left: 6px;
 }
 
-.logo {
-
-}
-
 .navbar-icons {
   display: flex;
   justify-content: flex-end;
@@ -114,6 +110,7 @@ span.text-red {
   transform: scale(1, 1);
   transition: transform 0.5s ease;
   color: var(--color2);
+  max-width: 250px;
 
 }
 

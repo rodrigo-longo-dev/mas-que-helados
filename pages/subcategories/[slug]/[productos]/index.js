@@ -32,12 +32,12 @@ const Index = ({ category, products, productos, slug, bannerData }) => {
 }
 
 export const getStaticPaths = async () => {
-  // if (process.env.SKIP_BUILD_STATIC_GENERATION) {
-  //   return {
-  //     paths: [],
-  //     fallback: 'blocking',
-  //   }
-  // }
+  if (process.env.SKIP_BUILD_STATIC_GENERATION) {
+    return {
+      paths: [],
+      fallback: 'blocking',
+    }
+  }
   const query = `*[_type == "product"]{
     slug {
       current
