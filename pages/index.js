@@ -1,8 +1,8 @@
 import React from 'react'
 import {client} from '../lib/client'
-import {Category, HeroBanner, FooterBanner } from '../components'
+import {Category, HeroBanner } from '../components'
 
-const Home = ({ categories, bannerData }) => {
+const Home = ({ categories }) => {
   return (
     <>
         <HeroBanner />
@@ -13,7 +13,7 @@ const Home = ({ categories, bannerData }) => {
         <div className="products-container">
           {categories?.map(category => <Category key={category.id} category={category} />)}
         </div>
-        {bannerData && <FooterBanner footerBanner={bannerData[0]} />}
+        {/* {bannerData && <FooterBanner footerBanner={bannerData[0]} />} */}
     </>
   )
 }
@@ -22,10 +22,10 @@ export const getServerSideProps = async () => {
   const query = '*[_type == "category"]'
   const categories = await client.fetch(query)
   
-  const bannerQuery = '*[_type == "banner"]'
-  const bannerData = await client.fetch(bannerQuery)
+  // const bannerQuery = '*[_type == "banner"]'
+  // const bannerData = await client.fetch(bannerQuery)
 
-  return {props: {categories, bannerData}}
+  return {props: {categories}}
 }
  
 export default Home
