@@ -140,63 +140,47 @@ span.text-red {
 }
 
 .hero-banner-container {
-  padding: 100px 40px;
   border-radius: 15px;
   position: relative;
-  min-height: 500px;
+  height: 500px;
   line-height: 0.9;
-  width: 100%;
-
+  width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: row;
+  -webkit-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
+  -moz-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
 }
 
-.hero-banner-container .beats-solo {
-  font-size: 20px;
-  position: relative;
-  z-index: 15;
-}
 
-.hero-banner-container button {
-  border-radius: 15px;
-  padding: 10px 16px;
-  color: white;
-  border: none;
-  margin-top: 40px;
-  font-size: 18px;
-  font-weight: 500;
-  cursor: pointer;
-  position: relative;
-  z-index: 15;
+.hero-banner-text {
+  padding: 20px;
+  flex: 0 1 30%;
+  min-width: 300px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 50px;
 }
-
-.hero-banner-container button:hover {
-  scale: 1.1;
-  transition: all 0.5s ease-out;
-}
-
-.hero-banner-container h3 {
-  font-size: 4rem;
-  margin-top: 4px;
-  position: relative;
-  z-index: 15;
-}
-
-.hero-banner-container h1 {
+.hero-banner-text h1 {
   color: #333;
-  font-size: 10em;
-  margin-left: -10px;
+  font-size: 6em;
   text-transform: uppercase;
-  position: relative;
-  z-index: 15;
 }
-
+.hero-banner-text h3 {
+  color: #333;
+  font-size: 2em;
+  line-height: 36px;
+}
 .hero-banner-image {
-  object-fit: contain;
-  position: absolute;
-  top: 0%;
-  right: 20%;
-  width: 450px;
-  height: 450px;
-  z-index: 10;
+  object-fit: cover;
+  flex: 0 1 65%;
+  height: 100%;
+  border-radius: 0 15px 15px 0;
 }
 
 

@@ -5,7 +5,7 @@ import {Category, HeroBanner, FooterBanner } from '../components'
 const Home = ({ categories, bannerData }) => {
   return (
     <>
-        {bannerData && <HeroBanner heroBanner={bannerData[0]} />}
+        <HeroBanner />
         <div className="products-heading">
           <h2>Los mejores productos para helado</h2>
           <p>El mejor helado</p>

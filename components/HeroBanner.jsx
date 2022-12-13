@@ -1,27 +1,18 @@
 import React from 'react'
-import Link from 'next/link'
-
-import { urlFor } from '../lib/client'
-
-const HeroBanner = ({ heroBanner }) => {
+const HeroBanner = () => {
+  const url =  "https://firebasestorage.googleapis.com/v0/b/masquehelados-next.appspot.com/o/Archivos%20de%20la%20web%2Ffotos%2FtarrinasBanner.jpg?alt=media&token=0fa3958c-99ab-498d-8558-821cf4734729"
   return (
-    <div style={{ backgroundColor: heroBanner.headerBackgroundColor}} className="hero-banner-container">
-      <div>
-        <p className="beats-solo">{heroBanner.smallText}</p>
-        <h3  style={{ color: heroBanner.headerPrimaryColor}}>{heroBanner.midText}</h3>
-        <h1>{heroBanner.largeText1}</h1>
-        <img src={urlFor(heroBanner.image)} alt="headphones" className="hero-banner-image"/>
+    <div className="hero-banner-container">
+      <div className="hero-banner-text">
         <div>
-          <Link href={`/blog`}>
-              <button style={{ backgroundColor: heroBanner.headerPrimaryColor}} type="button">{heroBanner.buttonText}</button>
-          </Link>
-          <div className="desc">
-              <h5>Description</h5>
-              <p>{heroBanner.desc}</p>
-          </div>
+          <h1>SERGEL</h1>
+          <h1>GELATI</h1>
+        </div>
+        <div>
+          <h3>"La mejor materia prima para tus helados"</h3>
         </div>
       </div>
-      
+      <img src={url} alt="SERGEL" className="hero-banner-image" />
     </div>
   )
 }
