@@ -21,11 +21,12 @@ const ProductDetails = ({ currentProduct, products, product }) => {
     return <ErrorPage statusCode={404} />
   }
   useEffect(() => {
-    if (precio.minimoCajas) {
-      incQty(precio.minimoCajas)
+    if (precio) {
+      if (precio.minimoCajas) {
+        incQty(precio.minimoCajas)
+      }
     }
   }, [])
-  console.log(video);
   return (
     <>
       <Head>
@@ -44,7 +45,7 @@ const ProductDetails = ({ currentProduct, products, product }) => {
         <div className="product-detail-container">
           {image[0].asset && <div>
             <div className="image-container">
-              {index !== "video" &&<img onClick={() => setBigImage(true)} src={urlFor(image && image[index])} className="product-detail-image" />}
+              {index !== "video" && <img onClick={() => setBigImage(true)} src={urlFor(image && image[index])} className="product-detail-image" />}
               {video && index === "video" && <video
                 className="product-detail-image"
                 muted
