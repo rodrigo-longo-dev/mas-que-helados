@@ -3,16 +3,19 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase"
 import { toast } from 'react-hot-toast'
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const register = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const router = useRouter()
     const handleSubmit = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                console.log(user);
+                if (user) {
+                    router.push('/complete-register')
+                }
             })
             .catch((error) => {
                 const errorCode = error.code;

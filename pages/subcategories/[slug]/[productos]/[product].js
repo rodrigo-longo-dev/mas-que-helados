@@ -82,7 +82,6 @@ const ProductDetails = ({ currentProduct, products, product }) => {
             <h4>Detalles: </h4>
             <p>{details}</p>
             {precio && <>
-              <p className="price">{(precio.unidadesCaja / precio.unidadesPrecio) * precio.precio * qty}€</p>
               <p className="price">{precio.precio}€ <span> / {precio.unidadesPrecio} uds.</span></p>
               <p className="price"><span>{precio.unidadesCaja} uds.  / Caja - Pedido mínimo: {precio.minimoCajas} cajas</span></p>
               <div className="quantity">
@@ -93,6 +92,7 @@ const ProductDetails = ({ currentProduct, products, product }) => {
                   <span className="plus" onClick={incQty}><AiOutlinePlus /></span>
                 </p>
               </div>
+              <p className="price">Total: {((precio.unidadesCaja / precio.unidadesPrecio) * precio.precio * qty).toFixed(2)}€</p>
               <div className="buttons">
                 <button type="button" className="add-to-cart" onClick={() => onAdd(currentProduct, qty)}>Add to Cart</button>
                 {/* <button type="button" className="buy-now" onClick={handleBuyNow}>Buy Now</button> */}
