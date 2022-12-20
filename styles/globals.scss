@@ -12,7 +12,9 @@
 .layout {
   padding: 10px;
 }
-
+.logo {
+  cursor: pointer;
+}
 .navbar-container {
   display: flex;
   justify-content: space-between;
@@ -101,7 +103,7 @@ span.text-red {
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
-  margin-top: 20px;
+  margin: 20px 0;
   width: 100%;
 }
 

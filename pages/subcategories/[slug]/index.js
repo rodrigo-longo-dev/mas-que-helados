@@ -2,7 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
 import { client } from '../../../lib/client'
-import { HeroBanner, FooterBanner } from '../../../components'
+import { HeroBanner } from '../../../components'
 import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
@@ -34,7 +34,6 @@ const Home = ({ category, products, slug, bannerData }) => {
           {products?.map(product => <Product urlCategory={slug} key={product.id} product={product} />)}
         </Suspense>
       </div>
-      {bannerData && <FooterBanner footerBanner={bannerData[0]} />}
     </>
   )
 }

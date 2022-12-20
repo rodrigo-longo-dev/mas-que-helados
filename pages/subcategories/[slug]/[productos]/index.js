@@ -2,7 +2,7 @@ import React from 'react'
 import Head from 'next/head'
 import ErrorPage from 'next/error'
 import { client } from '../../../../lib/client'
-import { Product, HeroBanner, FooterBanner } from '../../../../components'
+import { Product, HeroBanner } from '../../../../components'
 import { useRouter } from 'next/router'
 
 const Index = ({ category, products, productos, slug, bannerData }) => {
@@ -26,7 +26,6 @@ const Index = ({ category, products, productos, slug, bannerData }) => {
       <div className="products-container">
         {products?.map(product => <Product urlCategory={url} key={product.id} product={product} />)}
       </div>
-      <FooterBanner footerBanner={bannerData && bannerData[0]} />
     </>
   )
 }

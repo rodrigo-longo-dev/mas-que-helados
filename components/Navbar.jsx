@@ -13,9 +13,9 @@ const Navbar = () => {
 
   return (
     <div className="navbar-container">
-      <p className="logo">
+      <div className="logo">
         <Link href="/"><Image width="80" height="67" src={logoMQH} /></Link>
-      </p>
+      </div>
       <div className="navbar-icons">
         <Link href="/contacto">
           <div className="cart-icon">
