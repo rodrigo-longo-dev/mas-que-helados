@@ -40,12 +40,6 @@ export default {
             ]
         },
         {
-            name: 'stock',
-            title: 'Stock',
-            type: 'number',
-            description: 'Cajas disponibles en el almacen'
-        },
-        {
             name: 'units',
             title: 'Units',
             type: 'number'

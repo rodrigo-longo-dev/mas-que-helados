@@ -8,7 +8,7 @@ import { useStateContext } from '../context/StateContext'
 import Image from 'next/image'
 
 const Navbar = () => {
-  const { showCart, setShowCart, totalQuantities } = useStateContext()
+  const { showCart, setShowCart, totalQuantities, user } = useStateContext()
 
 
   return (
@@ -17,16 +17,16 @@ const Navbar = () => {
         <Link href="/"><Image width="80" height="67" src={logoMQH} /></Link>
       </div>
       <div className="navbar-icons">
-        <Link href="/contacto">
+        {/* <Link href="/contacto">
           <div className="cart-icon">
             <AiFillPhone />
           </div>
-        </Link>
-        <Link href="/register">
+        </Link> */}
+        {!user && <Link href="/login">
           <div className="cart-icon">
             <FaUserCircle />
           </div>
-        </Link>
+        </Link>}
         <button onClick={() => setShowCart(true)} type="button" className="cart-icon">
           <AiOutlineShopping />
           <span className="cart-item-qty">{totalQuantities}</span>

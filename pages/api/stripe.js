@@ -3,9 +3,10 @@ import Stripe from 'stripe';
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 
 const SANITY_ID = 'sriu7xjj'
-const STRIPE_SHIPPING_OPTIONS = [
-  { shipping_rate: 'shr_1LmCpsGYxWDRvVe6f4KLV98m' },
-]
+const STRIPE_SHIPPING_OPTIONS = []
+// const STRIPE_SHIPPING_OPTIONS = [
+//   { shipping_rate: 'shr_1LmCpsGYxWDRvVe6f4KLV98m' },
+// ]
 const STRIPE_CONFIG_CURRENCY = 'eur'
 
 

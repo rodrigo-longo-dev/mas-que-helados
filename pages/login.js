@@ -1,27 +1,46 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase"
 import { toast } from 'react-hot-toast'
 import Link from 'next/link';
+import { useStateContext } from '../context/StateContext';
+import { useRouter } from 'next/router';
+import { client } from '../lib/client';
 
 const register = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
+    const { user, setUserLocale } = useStateContext()
+    const router = useRouter()
     const handleSubmit = () => {
         signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                console.log(user);
+            .then(async (userCredential) => {
+                const data = {
+                    uid: userCredential.user.uid,
+                    email: userCredential.user.email
+                }
+                const query = `*[_type == "users" && firebaseId == "${data.uid}"][0]`
+                const users = await client.fetch(query)
+                if (users) {
+                    setUserLocale(users);
+                }
+                router.push('/')
             })
             .catch((error) => {
                 const errorCode = error.code;
-                console.log(errorCode);
-                // if (errorCode === 'auth/email-already-in-use') {
-                //     toast.error('Email en uso')
-                // }
+                if (errorCode === 'auth/user-not-found') {
+                    toast.error('Email o contraseña incorrecto')
+                }
+                if (errorCode === 'auth/invalid-email') {
+                    toast.error('Email inválido')
+                }
             });
     }
+    useEffect(() => {
+        if (user) {
+            router.push('/')
+        }
+    }, [user])
     return (
         <div className="register__container">
             <div className="register__box">

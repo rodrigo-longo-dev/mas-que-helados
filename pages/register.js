@@ -1,21 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase"
 import { toast } from 'react-hot-toast'
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useStateContext } from '../context/StateContext';
 
 const register = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const router = useRouter()
+    const { user, setUserLocale } = useStateContext()
     const handleSubmit = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                const user = userCredential.user;
-                if (user) {
-                    router.push('/complete-register')
+                const data = {
+                    uid: userCredential.user.uid,
+                    email: userCredential.user.email
                 }
+                setUserLocale(data);
+                router.push('/complete-register')
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -24,6 +28,11 @@ const register = () => {
                 }
             });
     }
+    useEffect(() => {
+        if (user) {
+            router.push('/')
+        }
+    }, [user])
     return (
         <div className="register__container">
             <div className="register__box">

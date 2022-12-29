@@ -61,7 +61,7 @@ const Cart = () => {
               <div className="item-desc">
                 <div className="flex top">
                   <h5>{item.name}</h5>
-                  <h4>${item.price}</h4>
+                  <h4>{item.precio.precio} €</h4>
                 </div>
                 <div className="flex bottom">
                   <div>
@@ -83,11 +83,14 @@ const Cart = () => {
           <div className="cart-bottom">
             <div className="total">
               <h3>Subtotal</h3>
-              <h3>${parseFloat(totalPrice.toFixed(2))}</h3>
+              <h3>{parseFloat(totalPrice).toFixed(2)} €</h3>
             </div>
+            <p>
+              Para el pago, como no hay control del Stock tenemos que revisarlo manualmente, como no queremos que el cliente haga un pago de productos que no sabemos si tenemos stock, lo mejor sería hacer un aviso por correo a mqh, que revisen el stock y confirmen al cliente que esta dsiponible el stock. en caso de que no enviando un correo al cliente con el stock disponible.
+            </p>
             <div className="btn-container">
               <button type="button" className="btn" onClick={handleCheckout}>
-                PAY WITH STRIPE
+                PAGAR CON STRIPE
               </button>
             </div>
           </div>

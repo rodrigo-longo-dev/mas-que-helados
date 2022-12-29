@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { client } from '../lib/client'
 import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/router';
+import { useStateContext } from '../context/StateContext';
 
 const completeRegister = () => {
   const [data, setData] = useState({});
@@ -14,6 +15,7 @@ const completeRegister = () => {
     dataUpdated[field] = value;
     setData(dataUpdated);
   }
+  const { setUserLocale } = useStateContext()
   
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
@@ -61,6 +63,7 @@ const completeRegister = () => {
     console.log(doc);
     client.createIfNotExists(doc).then((res) => {
       if (res._id) {
+        setUserLocale(res)
         router.push('/')
       }
     })
