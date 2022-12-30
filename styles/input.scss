@@ -6,6 +6,9 @@
     border-radius: 6px;
     outline: none;
     text-align: center;
+    -webkit-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, .2);
+    box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, .2);
 
     &::placeholder {
         font-size: 14px;
@@ -18,20 +21,41 @@
     width: 100%;
     padding: 10px 14px;
     border: none;
-    background-color: rgb(199, 199, 199);
+    background-color: rgb(63, 161, 241);
     border-radius: 6px;
     outline: none;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.35s ease;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    -webkit-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, .2);
+    box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, .2);
+    transition: background-color 0.35s ease, box-shadow 0.35s ease;
+
     &:hover {
-        background-color: rgb(238, 209, 209);
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+        background-color: rgb(72, 170, 250);
     }
+
     &--disabled {
         cursor: not-allowed;
-        background-color: rgb(153, 143, 143);
+        background-color: rgb(179, 179, 179);
+
         &:hover {
-            background-color: rgb(153, 143, 143);
+            background-color: rgb(179, 179, 179);
+        }
+    }
+
+    &--logout {
+        cursor: pointer;
+        background-color: rgb(238, 91, 91);
+
+        &:hover {
+            background-color: rgb(236, 76, 76);
         }
     }
 }

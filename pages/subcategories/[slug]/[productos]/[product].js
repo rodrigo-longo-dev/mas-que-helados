@@ -3,19 +3,19 @@ import Head from 'next/head'
 import ErrorPage from 'next/error'
 import { client, urlFor, fileUrl, videoUrl } from '../../../../lib/client'
 import { AiOutlineMinus, AiOutlinePlus, AiOutlineClose } from 'react-icons/ai'
+import { FiChevronLeft } from 'react-icons/fi'
 import { Product } from '../../../../components'
 import { useStateContext } from '../../../../context/StateContext'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 const ProductDetails = ({ currentProduct, products, product }) => {
   const { image, name, details, video, units, fichaTecnica, precio } = currentProduct
+  const [productsMarquee, setProductsMarquee] = useState([]);
+  const [newUrl, setNewUrl] = useState('')
   const [index, setIndex] = useState(0);
   const [bigImage, setBigImage] = useState(false);
   const { decQty, incQty, qty, onAdd, setShowCart } = useStateContext()
-  const handleBuyNow = () => {
-    onAdd(currentProduct, qty, onAdd)
-    setShowCart(true)
-  }
   const router = useRouter()
   if (!router.isFallback && !product) {
     return <ErrorPage statusCode={404} />
@@ -26,6 +26,12 @@ const ProductDetails = ({ currentProduct, products, product }) => {
         incQty(precio.minimoCajas)
       }
     }
+    if (products) {
+      const filteredProducts = products.filter(p => p.subcategory._ref === currentProduct.subcategory._ref)
+      setProductsMarquee(filteredProducts)
+    }
+    const getUrl = router.asPath.split('/')
+    setNewUrl(`${getUrl[2]}/${getUrl[3]}`)
   }, [])
   return (
     <>
@@ -77,6 +83,7 @@ const ProductDetails = ({ currentProduct, products, product }) => {
           </div>}
 
           <div className="product-detail-desc">
+            <p className="product-detail-goBack"><FiChevronLeft /><Link href={`/subcategories/${newUrl}`}>Volver</Link></p>
             <h1>{name}</h1>
             {fichaTecnica && <a target="_blank" rel="noreferrer" href={fileUrl(fichaTecnica.asset)}>Ficha técnica</a>}
             <h4>Detalles: </h4>
@@ -102,10 +109,10 @@ const ProductDetails = ({ currentProduct, products, product }) => {
         </div>
 
         <div className="maylike-products-wrapper">
-          <h2>You may also like</h2>
+          <h2>También podría interesarte</h2>
           <div className="marquee">
             <div className="maylike-products-container track">
-              {products.map((item) => (
+              {productsMarquee.length > 0 && productsMarquee.map((item) => (
                 <Product marquee={true} key={item._id} product={item} />
               ))}
             </div>

@@ -8,29 +8,30 @@ import { useStateContext } from '../context/StateContext';
 import { urlFor } from '../lib/client';
 
 import getStripe from '../lib/stripe'
+import { useRouter } from 'next/router';
 
 const Cart = () => {
   const cartRef = useRef();
-  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove } = useStateContext();
-
+  const { totalPrice, totalQuantities, cartItems, setShowCart, toggleCartItemQuanitity, onRemove, user } = useStateContext();
+  const router = useRouter();
   const handleCheckout = async () => {
-    const stripe = await getStripe();
-
-    const response = await fetch('/api/stripe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(cartItems),
-    });
-
-    if(response.statusCode === 500) return;
-    
-    const data = await response.json();
-
-    toast.loading('Redirecting...');
-
-    stripe.redirectToCheckout({ sessionId: data.id });
+    if (user) {
+      const stripe = await getStripe();
+      const response = await fetch('/api/stripe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(cartItems),
+      });
+      if (response.statusCode === 500) return;
+      const data = await response.json();
+      toast.loading('Redirecting...');
+      stripe.redirectToCheckout({ sessionId: data.id });
+    } else {
+      setShowCart(false)
+      router.push('/login')
+    }
   }
 
   return (
@@ -85,9 +86,6 @@ const Cart = () => {
               <h3>Subtotal</h3>
               <h3>{parseFloat(totalPrice).toFixed(2)} €</h3>
             </div>
-            <p>
-              Para el pago, como no hay control del Stock tenemos que revisarlo manualmente, como no queremos que el cliente haga un pago de productos que no sabemos si tenemos stock, lo mejor sería hacer un aviso por correo a mqh, que revisen el stock y confirmen al cliente que esta dsiponible el stock. en caso de que no enviando un correo al cliente con el stock disponible.
-            </p>
             <div className="btn-container">
               <button type="button" className="btn" onClick={handleCheckout}>
                 PAGAR CON STRIPE

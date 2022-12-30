@@ -10,7 +10,7 @@ const register = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const router = useRouter()
-    const { user, setUserLocale } = useStateContext()
+    const { setUserLocale } = useStateContext()
     const handleSubmit = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -28,11 +28,6 @@ const register = () => {
                 }
             });
     }
-    useEffect(() => {
-        if (user) {
-            router.push('/')
-        }
-    }, [user])
     return (
         <div className="register__container">
             <div className="register__box">

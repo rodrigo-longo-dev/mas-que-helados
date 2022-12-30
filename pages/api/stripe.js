@@ -3,10 +3,11 @@ import Stripe from 'stripe';
 const stripe = new Stripe(process.env.NEXT_PUBLIC_STRIPE_SECRET_KEY);
 
 const SANITY_ID = 'sriu7xjj'
-const STRIPE_SHIPPING_OPTIONS = []
-// const STRIPE_SHIPPING_OPTIONS = [
-//   { shipping_rate: 'shr_1LmCpsGYxWDRvVe6f4KLV98m' },
-// ]
+// const STRIPE_SHIPPING_OPTIONS = []
+const STRIPE_SHIPPING_OPTIONS = [
+  { shipping_rate: 'shr_1MKLG6LsADQOA3Fec6aeMobX' },
+  { shipping_rate: 'shr_1MKLHoLsADQOA3FeqPQxBhGh' },
+]
 const STRIPE_CONFIG_CURRENCY = 'eur'
 
 
@@ -37,7 +38,6 @@ export default async function handler(req, res) {
                 images: [newImage],
               },
               unit_amount: parseFloat(((item.precio.unidadesCaja / item.precio.unidadesPrecio) * item.precio.precio * 100).toFixed(2)),
-              //! unit_amount: parseFloat((item.price * 100).toFixed(2)),
             },
             adjustable_quantity: {
               enabled: false,

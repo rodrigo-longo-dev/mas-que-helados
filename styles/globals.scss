@@ -12,9 +12,98 @@
 .layout {
   padding: 10px;
 }
+
 .logo {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+
+  &:hover {
+    p {
+      text-decoration: underline;
+    }
+  }
 }
+
+.popUp {
+  &-container {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(51, 51, 51, 0.315);
+    backdrop-filter: blur(6px);
+    z-index: 999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .close {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 22px;
+      color: rgb(241, 73, 73);
+      width: 34px;
+      height: 34px;
+      background-color:rgb(255, 255, 255);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius:100%;
+    }
+  }
+  &-box {
+    width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    padding: 10px;
+  }
+  &-results {
+    width: 100%;
+    max-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    overflow-y: scroll;
+    .result {
+      &-box {
+        cursor: pointer;
+        width: 90%;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 0;
+        gap: 10px;
+        height: 50px;
+        -webkit-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, .2);
+        -moz-box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, .2);
+        box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, .2);
+        &:hover {
+          background-color: rgb(235, 235, 235);
+        }
+        p {
+          font-size: 16px;
+          font-weight: 400;
+        }
+        img {
+          width: 50px;
+          height: 50px;
+          border-radius: 4px 0 0 4px;
+          object-fit: scale-down;
+        }
+      }
+    }
+  }
+}
+
 .navbar-container {
   display: flex;
   justify-content: space-between;
@@ -70,10 +159,10 @@ span.text-red {
   gap: 10px;
 }
 
+
 .cart-icon {
   font-size: 25px;
   color: var(--gray);
-  cursor: pointer;
   position: relative;
   transition: transform .4s ease;
   border: none;
@@ -112,13 +201,14 @@ span.text-red {
   transform: scale(1, 1);
   transition: transform 0.5s ease;
   color: var(--color2);
-  max-width: 250px;
+  max-width: 280px;
+
+  &:hover {
+    transform: scale(1.1, 1.1)
+  }
 
 }
 
-.product-card:hover {
-  transform: scale(1.1, 1.1)
-}
 
 .product-image {
   border-radius: 15px;
@@ -132,7 +222,12 @@ span.text-red {
 }
 
 .product-name {
-  font-weight: 500;
+  font-weight: 700;
+  text-align: center;
+
+  &--left {
+    text-align: left;
+  }
 }
 
 .product-price {
@@ -142,47 +237,50 @@ span.text-red {
 }
 
 .hero-banner-container {
-  border-radius: 15px;
-  position: relative;
-  height: 380px;
-  line-height: 0.9;
+  max-width: 900px;
   width: 95%;
+  height: 200px;
   margin: auto;
   display: flex;
+  border-radius: 15px;
   justify-content: space-between;
-  align-items: flex-start;
-  flex-direction: row;
+  line-height: 0.9;
   -webkit-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
   -moz-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
   box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
 }
-
 
 .hero-banner-text {
   padding: 20px;
   flex: 0 1 30%;
   min-width: 300px;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
   flex-direction: column;
-  gap: 50px;
+  justify-content: space-between;
+  gap: 10px;
+
+  h1 {
+    color: #333;
+    font-size: 2.5em;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    color: #333;
+    font-size: 1.2em;
+    line-height: 28px;
+  }
+
 }
-.hero-banner-text h1 {
-  color: #333;
-  font-size: 6em;
-  text-transform: uppercase;
-}
-.hero-banner-text h3 {
-  color: #333;
-  font-size: 2em;
-  line-height: 36px;
-}
+
 .hero-banner-image {
-  object-fit: cover;
   flex: 0 1 65%;
   height: 100%;
   border-radius: 0 15px 15px 0;
+  background-image: url('https://firebasestorage.googleapis.com/v0/b/masquehelados-next.appspot.com/o/Archivos%20de%20la%20web%2Ffotos%2FtarrinasBanner.jpg?alt=media&token=0fa3958c-99ab-498d-8558-821cf4734729');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 
@@ -208,25 +306,23 @@ span.text-red {
   margin-bottom: 12px;
   font-weight: 700;
   font-size: 16px;
-  /* color: black; */
   align-self: flex-end;
 }
 
 .products-heading {
   text-align: center;
   margin: 40px 0px;
-  color: var(--color2);
+  color: #333;
 
-}
+  h2 {
+    font-size: 40px;
+    font-weight: 800;
+  }
 
-.products-heading h2 {
-  font-size: 40px;
-  font-weight: 800;
-}
-
-.products-heading p {
-  font-size: 16px;
-  font-weight: 200;
+  p {
+    font-size: 16px;
+    font-weight: 300;
+  }
 }
 
 .footer-banner-container {
@@ -530,13 +626,55 @@ span.text-red {
   align-items: center;
 }
 
-.product-detail-desc h4 {
-  margin-top: 10px;
+.product-detail-desc {
+  h4 {
+    margin-top: 10px;
+  }
+
+  p {
+    margin-top: 10px;
+    max-width: 400px;
+  }
+
+  .price {
+    font-weight: 700;
+    font-size: 26px;
+    margin-top: 30px;
+    color: var(--color1);
+
+    span {
+      font-weight: 400;
+      font-size: 20px;
+    }
+  }
+
+  .quantity {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    align-items: center;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 30px;
+  }
 }
 
-.product-detail-desc p {
-  margin-top: 10px;
-  max-width: 400px;
+.product-detail-goBack {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  font-weight: 700;
+  font-size: 14px;
+  width: 70px;
+  margin-bottom: 1px;
+
+  &:hover {
+    margin-bottom: 0px;
+    border-bottom: 1px solid #333;
+  }
+
 }
 
 .reviews p {
@@ -544,35 +682,11 @@ span.text-red {
   margin-top: 0px;
 }
 
-.product-detail-desc .price {
-  font-weight: 700;
-  font-size: 26px;
-  margin-top: 30px;
-  color: var(--color1);
-}
-
-.product-detail-desc .price span {
-  font-weight: 400;
-  font-size: 20px;
-}
-
-.price .old-price,
+.product-detail-desc .price .price .old-price,
 .product-price .old-price,
 .price .old-price {
   color: var(--gray);
   text-decoration: line-through;
-}
-
-.product-detail-desc .quantity {
-  display: flex;
-  gap: 20px;
-  margin-top: 10px;
-  align-items: center;
-}
-
-.product-detail-desc .buttons {
-  display: flex;
-  gap: 30px;
 }
 
 .buttons .add-to-cart {
@@ -796,16 +910,29 @@ span.text-red {
 }
 
 @media screen and (max-width:800px) {
-  .hero-banner-container {
-    height: 560px;
+  .hero-banner-text {
+    padding: 10px;
+    flex: 0 1 20%;
+    min-width: 240px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+
+    h1 {
+      color: #333;
+      font-size: 34px;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      color: #333;
+      font-size: 24px;
+      line-height: 26px;
+    }
+
   }
 
-  .hero-banner-image {
-    width: 77%;
-    height: 62%;
-    top: -2%;
-    right: -6%;
-  }
 
   .footer-banner-container {
     margin-top: 80px;
@@ -843,22 +970,6 @@ span.text-red {
   .banner-desc {
     flex-wrap: wrap;
     gap: 20px;
-  }
-
-  .hero-banner-container {
-    line-height: 1.3;
-  }
-
-  .hero-banner-container h1 {
-    font-size: 50px;
-  }
-
-  .hero-banner-container h3 {
-    font-size: 40px;
-  }
-
-  .hero-banner-container button {
-    margin-top: 90px;
   }
 
   .desc {
@@ -971,6 +1082,36 @@ span.text-red {
 }
 
 @media screen and (max-width:450px) {
+  .hero-banner-container {
+    max-width: 700px;
+    width: 95%;
+    height: 400px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    line-height: 0.9;
+    gap: 20px;
+    border-radius: 8px;
+    -webkit-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
+    box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, .2);
+  }
+
+  .hero-banner-text {
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .hero-banner-image {
+    flex: 0 1 65%;
+    height: 100%;
+    border-radius: 0 0px 8px 8px;
+  }
+
   .cart-container {
     width: 95%;
     padding: 4px;

@@ -12,7 +12,7 @@ const Product = dynamic(() => import('../../../components/Product'), {
   suspense: true,
 })
 
-const Home = ({ category, products, slug, bannerData }) => {
+const Home = ({ category, products, slug }) => {
   const router = useRouter()
   if (!router.isFallback && !slug) {
     return <ErrorPage statusCode={404} />
@@ -24,7 +24,6 @@ const Home = ({ category, products, slug, bannerData }) => {
         <meta name="description" content="Todos los productos para el helado, están en más que helados!" />
         <meta property="og:title" content="Mas que helados" />
       </Head>
-      {bannerData && <HeroBanner heroBanner={bannerData[0]} />}
       <div className="products-heading">
         <h2>{category?.name}</h2>
         <p>{category?.name}</p>
@@ -68,13 +67,8 @@ export const getStaticProps = async ({ params: { slug } }) => {
     const productsQuery = `*[_type == "subcategory" && category._ref == '${category._id}']`
     products = await client.fetch(productsQuery)
   }
-
-  const bannerQuery = '*[_type == "banner"]'
-  const bannerData = await client.fetch(bannerQuery)
-
-
   return {
-    props: { category, products, slug, bannerData },
+    props: { category, products, slug },
     revalidate: 10,
   }
 }

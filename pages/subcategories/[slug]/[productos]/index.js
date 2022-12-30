@@ -5,7 +5,7 @@ import { client } from '../../../../lib/client'
 import { Product, HeroBanner } from '../../../../components'
 import { useRouter } from 'next/router'
 
-const Index = ({ category, products, productos, slug, bannerData }) => {
+const Index = ({ category, products, productos, slug }) => {
   const router = useRouter()
   if (!router.isFallback && !productos) {
     return <ErrorPage statusCode={404} />
@@ -18,7 +18,6 @@ const Index = ({ category, products, productos, slug, bannerData }) => {
         <meta name="description" content="Todos los productos para el helado, están en más que helados!" />
         <meta property="og:title" content="Mas que helados" />
       </Head>
-      <HeroBanner heroBanner={bannerData && bannerData[0]} />
       <div className="products-heading">
         <h2>{category?.name}</h2>
         <p>El mejor helado</p>
@@ -73,12 +72,9 @@ export const getStaticProps = async ({ params: { productos, slug } }) => {
     products = await client.fetch(productsQuery)
   }
 
-  const bannerQuery = '*[_type == "banner"]'
-  const bannerData = await client.fetch(bannerQuery)
-
 
   return {
-    props: { category, products, productos, slug, bannerData },
+    props: { category, products, productos, slug },
     revalidate: 10,
   }
 }

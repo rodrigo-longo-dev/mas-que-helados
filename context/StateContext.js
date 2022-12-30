@@ -156,6 +156,12 @@ export const StateContext = ({ children }) => {
             setUser(localStorage.getItem('user'))
         }
     }
+    const logOut = () => {
+        if (typeof window !== "undefined") {
+            localStorage.removeItem('user')
+            setUser(null)
+        }
+    }
     return (
         <Context.Provider
             value={{
@@ -174,7 +180,8 @@ export const StateContext = ({ children }) => {
                 setTotalPrice,
                 setTotalQuantities,
                 user,
-                setUserLocale
+                setUserLocale,
+                logOut,
             }}
         >
             {children}
