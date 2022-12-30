@@ -13,14 +13,16 @@ const SearchProds = ({ close }) => {
         setProds(products)
     }
     const handleSearch = (text) => {
-        if (text === '') {
-            setProdsFiltered()
-        } else {
-            const filtered = prods.filter(prod => prod.name.toLowerCase().includes(text))
-            if (filtered.length > 0) {
-                setProdsFiltered(filtered.slice(0, 20))
-            } else {
+        if (prods) {
+            if (text === '') {
                 setProdsFiltered()
+            } else {
+                const filtered = prods.filter(prod => prod.name.toLowerCase().includes(text))
+                if (filtered.length > 0) {
+                    setProdsFiltered(filtered.slice(0, 20))
+                } else {
+                    setProdsFiltered()
+                }
             }
         }
     }
